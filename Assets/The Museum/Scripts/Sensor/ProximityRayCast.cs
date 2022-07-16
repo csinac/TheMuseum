@@ -33,10 +33,8 @@ namespace RectangleTrainer.MOIB.Sensor
             }
         }
 
-        public override float[] CurrentValue {
-            get {
-                return new float[] { 0 };
-            }
+        public override void Read() {
+            //TODO
         }
 
         private void OnDrawGizmos() {

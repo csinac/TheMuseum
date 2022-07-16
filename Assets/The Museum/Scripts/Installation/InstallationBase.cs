@@ -28,9 +28,9 @@ namespace RectangleTrainer.MOIB.Installation {
         }
 
         protected virtual void Update() {
-            movement = motionSensor.CurrentValue;
-            proximity = proximitySensor.CurrentValue;
-            audio = audioSensor.CurrentValue;
+            movement = motionSensor.CurrentValues;
+            proximity = proximitySensor.CurrentValues;
+            audio = audioSensor.CurrentValues;
             
             OnMovement(movement);
             OnProximity(proximity);
