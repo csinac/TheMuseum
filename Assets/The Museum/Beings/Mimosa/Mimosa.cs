@@ -10,7 +10,9 @@ namespace RectangleTrainer.MOIB.Installation
     {
         [SerializeField] private float movementThreshold = 0.3f;
         [SerializeField] private Transform mesh;
+        [SerializeField] private float trustCooldown = 10;
 
+        private float trustCooldownTime;
         private float _trust;
         private float Trust {
             get => _trust;
@@ -44,6 +46,9 @@ namespace RectangleTrainer.MOIB.Installation
                 currentProximity = sum / count;
             else
                 currentProximity = Single.PositiveInfinity;
+            
+            if (currentProximity <= 1 && previousProximity > 1)
+                trustCooldownTime = trustCooldown;
         }
 
         protected override void OnAudio(float[] values) {
@@ -59,17 +64,24 @@ namespace RectangleTrainer.MOIB.Installation
         }
 
         private void UpdateTrust() {
+            if (trustCooldownTime > 0 && currentProximity <= 1 && Trust >= 0)
+                trustCooldownTime -= Time.deltaTime;
+            
             if (movementDetected) {
                 Log("Too fast", "#ffaa00");
                 movementDetected = false;
+                trustCooldownTime = trustCooldown;
                 Trust = Mathf.Clamp(Trust - proximityDelta / Mathf.Max(0.01f, currentProximity),-100, 100);
             }
 
-            if (Trust < 0 && currentProximity > 1) {
-                Trust += Time.deltaTime;
+            if (Trust < 0) {
+                if(currentProximity > 1)
+                    Trust += Time.deltaTime;
             }
-            
-            Log(Trust);
+            else {
+                if (currentProximity < 1 && trustCooldownTime <= 0)
+                    Trust += Time.deltaTime;
+            }
         }
 
         private void VisualizeTrust() {
