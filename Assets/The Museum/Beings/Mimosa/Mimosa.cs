@@ -7,6 +7,11 @@ namespace RectangleTrainer.MOIB.Installation
 {
     public class Mimosa : InstallationBase
     {
+        [SerializeField] private float movementThreshold = 0.3f;
+        
+        private float previousProximity;
+        private float currentProximity;
+        
         protected override void OnMovement(float[] values) {
             //TODO
         }
@@ -21,17 +26,32 @@ namespace RectangleTrainer.MOIB.Installation
                     count++;
                 }
             }
+
+            previousProximity = currentProximity;
             
             if(count > 0)
-                sum /= count;
+                currentProximity = sum / count;
             else
-                sum = Single.PositiveInfinity;
-
-            Debug.Log(sum);
+                currentProximity = Single.PositiveInfinity;
         }
 
         protected override void OnAudio(float[] values) {
             //TODO
+        }
+
+        protected override void Update() {
+            base.Update();
+            
+            ProximityControl();
+        }
+
+        private void ProximityControl() {
+            if (currentProximity == Single.PositiveInfinity || previousProximity == Single.PositiveInfinity)
+                return;
+            
+            float pDelta = (previousProximity - currentProximity) / Time.deltaTime;
+            if(pDelta > movementThreshold)
+                Log("#ffaa00", "Too fast");
         }
     }
 }

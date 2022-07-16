@@ -36,5 +36,9 @@ namespace RectangleTrainer.MOIB.Installation {
             OnProximity(proximity);
             OnAudio(audio);
         }
+
+        protected void Log(string color, string message) {
+            Debug.Log($"<color={color}>{Title}: {message}</color>");
+        }
     }
 }
