@@ -15,13 +15,13 @@ namespace RectangleTrainer.MOIB.Installation {
         public string Title => info.Title;
         public string Info => info.Info;
 
-        protected float movement;
-        protected float proximity;
-        protected float audio;
+        protected float[] movement;
+        protected float[] proximity;
+        protected float[] audio;
         
-        protected abstract void OnMovement(float value);
-        protected abstract void OnProximity(float value);
-        protected abstract void OnAudio(float value);
+        protected abstract void OnMovement(float[] values);
+        protected abstract void OnProximity(float[] values);
+        protected abstract void OnAudio(float[] values);
 
         protected virtual void Start() {
             
