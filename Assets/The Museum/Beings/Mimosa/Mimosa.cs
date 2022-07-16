@@ -11,7 +11,7 @@ namespace RectangleTrainer.MOIB.Installation
         }
 
         protected override void OnProximity(float[] values) {
-            //TODO
+            Debug.Log(string.Join(", ", values));
         }
 
         protected override void OnAudio(float[] values) {
