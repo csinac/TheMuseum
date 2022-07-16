@@ -148,6 +148,7 @@ MonoBehaviour:
   audioSensor: {fileID: 4263119921837434153}
   proximitySensor: {fileID: 6393566743839652577}
   movementThreshold: 0.8
+  mesh: {fileID: 3909344554798364753}
 --- !u!1 &6662212172621098869
 GameObject:
   m_ObjectHideFlags: 0

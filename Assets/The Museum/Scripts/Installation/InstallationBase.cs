@@ -37,8 +37,11 @@ namespace RectangleTrainer.MOIB.Installation {
             OnAudio(audio);
         }
 
-        protected void Log(string color, string message) {
-            Debug.Log($"<color={color}>{Title}: {message}</color>");
+        protected void Log(object message, string color = null) {
+            if(color == null)
+                Debug.Log($"{Title}: {message}");
+            else
+                Debug.Log($"<color={color}>{Title}: {message}</color>");
         }
     }
 }
