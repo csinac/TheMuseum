@@ -59,10 +59,14 @@ namespace RectangleTrainer.MOIB.Sensor
 
             for (int i = 0; i < rayCount; i++) {
                 Gizmos.DrawRay(rays[i].origin, rays[i].direction * detectionDistance);
-                
-                if(readings[i] <= detectionDistance)
-                    Gizmos.DrawSphere(rays[i].origin + rays[i].direction * readings[i], 0.05f);
+
+                if (readings[i] <= 1) {
+                    Gizmos.DrawSphere(rays[i].origin + rays[i].direction * readings[i] * detectionDistance, 0.05f);
+                }
             }
+
+            if(transform.hasChanged)
+                Initialize();
         }
     }
 }
