@@ -8,6 +8,9 @@ namespace RectangleTrainer.MOIB.Installation {
     {
         [SerializeField] private InstallationInfo info;
 
+        public string Title => info.Title;
+        public string Info => info.Info;
+
         protected float movement;
         protected float proximity;
         protected float sound;
