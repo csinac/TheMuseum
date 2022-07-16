@@ -33,8 +33,9 @@ namespace RectangleTrainer.MOIB.Sensor
             }
         }
 
-        public override void Read() {
+        protected override float[] Read() {
             //TODO
+            return null;
         }
 
         private void OnDrawGizmos() {

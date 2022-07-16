@@ -8,13 +8,24 @@ namespace RectangleTrainer.MOIB.Sensor
         [SerializeField] private bool autoUpdate = true;
         protected float[] readings;
 
-        public float[] CurrentValues => readings;
+        public float[] CurrentValues {
+            get {
+                if (!autoUpdate)
+                    UpdateReadings();
+
+                return readings;
+            }
+        }
 
         protected virtual void Update() {
             if(autoUpdate)
-                Read();
+                UpdateReadings();
         }
 
-        public abstract void Read();
+        private void UpdateReadings() {
+            readings = Read();
+        }
+
+        protected abstract float[] Read();
     }
 }
