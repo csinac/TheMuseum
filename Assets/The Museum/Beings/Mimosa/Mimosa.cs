@@ -6,15 +6,15 @@ namespace RectangleTrainer.MOIB.Installation
 {
     public class Mimosa : InstallationBase
     {
-        protected override void OnMovement(float value) {
+        protected override void OnMovement(float[] values) {
             //TODO
         }
 
-        protected override void OnProximity(float value) {
+        protected override void OnProximity(float[] values) {
             //TODO
         }
 
-        protected override void OnAudio(float value) {
+        protected override void OnAudio(float[] values) {
             //TODO
         }
     }

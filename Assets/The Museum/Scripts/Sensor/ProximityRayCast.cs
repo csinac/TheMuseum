@@ -4,9 +4,9 @@ namespace RectangleTrainer.MOIB.Sensor
 {
     public class ProximityRayCast : SensorBase
     {
-        public override float CurrentValue {
+        public override float[] CurrentValue {
             get {
-                return 0;
+                return new float[] { 0 };
             }
         }
     }
