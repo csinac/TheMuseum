@@ -41,7 +41,7 @@ namespace RectangleTrainer.MOIB.Sensor
             
             for (int i = 0; i < rayCount; i++) {
                 if (Physics.Raycast(rays[i], out RaycastHit hit, detectionDistance)) {
-                    values[i] = Vector3.Distance(hit.point, transform.position);
+                    values[i] = Vector3.Distance(hit.point, transform.position) / detectionDistance;
                 }
                 else {
                     values[i] = float.PositiveInfinity;
