@@ -8,18 +8,30 @@ namespace RectangleTrainer.MOIB.Installation {
     {
         [SerializeField] private InstallationInfo info;
 
-        protected abstract void SenseMovement();
-        protected abstract void SenseProximity();
-        protected abstract void SenseAudio();
+        protected float movement;
+        protected float proximity;
+        protected float sound;
+
+        protected abstract float SenseMovement { get; }
+        protected abstract float SenseProximity { get; }
+        protected abstract float SenseSound { get; }
+
+        protected abstract void OnMovement(float value);
+        protected abstract void OnProximity(float value);
+        protected abstract void OnSound(float value);
 
         protected virtual void Start() {
             
         }
 
         protected virtual void Update() {
-            SenseMovement();
-            SenseProximity();
-            SenseAudio();
+            movement = SenseMovement;
+            proximity = SenseProximity;
+            sound = SenseSound;
+            
+            OnMovement(movement);
+            OnProximity(proximity);
+            OnSound(sound);
         }
     }
 }
