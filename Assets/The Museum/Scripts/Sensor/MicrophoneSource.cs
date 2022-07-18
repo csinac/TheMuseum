@@ -5,17 +5,16 @@ using UnityEngine;
 namespace RectangleTrainer.MOIB.Sensor
 {
     [RequireComponent(typeof(AudioSource))]
-    public class MicrophoneSource : MonoBehaviour
+    public class MicrophoneSource : AudioSourceBase
     {
         private AudioSource source;
         private float volume;
         private float t = 0;
 
         private string device;
-        private float volumeMultiplier = 1000;
-
-        public float Volume => volume;
-
+        
+        public override float Volume => volume;
+        
         void Start() {
             if (Microphone.devices.Length == 0) {
                 Destroy(this);
@@ -27,7 +26,7 @@ namespace RectangleTrainer.MOIB.Sensor
             source = GetComponent<AudioSource>();
             source.clip = Microphone.Start(device, true, 10, AudioSettings.outputSampleRate);
             source.loop = true;
-            while(!(Microphone.GetPosition(null) > 0)) {}
+            while(!(Microphone.GetPosition(device) > 0)) {}
             source.Play();
         }
 
@@ -40,9 +39,7 @@ namespace RectangleTrainer.MOIB.Sensor
             }
 
             ordered.Sort();
-            volume = ordered[32] * volumeMultiplier;
-            if(volume > 30)
-                Debug.Log($"Pulse! {volume}");
+            volume = ordered[32];
         }
     }
 }

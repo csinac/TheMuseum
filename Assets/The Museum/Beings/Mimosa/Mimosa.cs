@@ -11,6 +11,7 @@ namespace RectangleTrainer.MOIB.Installation
         [SerializeField] private float movementThreshold = 0.3f;
         [SerializeField] private Transform mesh;
         [SerializeField] private float trustCooldown = 10;
+        [SerializeField] private float audioThreshold = .03f;
 
         private float trustCooldownTime;
         private float _trust;
@@ -52,7 +53,9 @@ namespace RectangleTrainer.MOIB.Installation
         }
 
         protected override void OnAudio(float[] values) {
-            //TODO
+            if (values[0] > audioThreshold) {
+                Log($"Pulse! {values[0]}", "#aa88ff");
+            }
         }
 
         protected override void Update() {
