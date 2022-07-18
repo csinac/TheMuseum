@@ -8,17 +8,28 @@ namespace RectangleTrainer.MOIB.Sensor
     public class MicrophoneSource : MonoBehaviour
     {
         private AudioSource source;
-        private float Volume;
+        private float volume;
         private int len = 10;
         private float t = 0;
+
+        private string device;
+        private float volumeMultiplier = 1000;
+
+        public float Volume => volume;
 
         void Start() {
             if (Microphone.devices.Length == 0) {
                 Destroy(this);
                 return;
             }
-            
+
+            device = Microphone.devices[0];
+            Debug.Log(device);
             source = GetComponent<AudioSource>();
+            source.clip = Microphone.Start(device, true, len, AudioSettings.outputSampleRate);
+            source.loop = true;
+            while(!(Microphone.GetPosition(null) > 0)) {}
+            source.Play();
         }
 
         void Update() {
@@ -30,23 +41,9 @@ namespace RectangleTrainer.MOIB.Sensor
             }
 
             ordered.Sort();
-            Volume = ordered[32];
-//            if(Volume > 0.05f)
-                Debug.Log(Volume * 1000);
-            
-            if (t <= 0) {
-                t = len;
-                StartCoroutine(RestartMic());
-            }
-
-            t -= Time.deltaTime;
-        }
-
-        IEnumerator RestartMic() {
-            source.clip = Microphone.Start(null, false, len, AudioSettings.outputSampleRate);
-            source.Play();
-            Debug.Log("start mic");
-            yield return null;
+            volume = ordered[32] * volumeMultiplier;
+            if(volume > 30)
+                Debug.Log($"Pulse! {volume}");
         }
     }
 }
