@@ -9,7 +9,6 @@ namespace RectangleTrainer.MOIB.Sensor
     {
         private AudioSource source;
         private float volume;
-        private int len = 10;
         private float t = 0;
 
         private string device;
@@ -26,7 +25,7 @@ namespace RectangleTrainer.MOIB.Sensor
             device = Microphone.devices[0];
             Debug.Log(device);
             source = GetComponent<AudioSource>();
-            source.clip = Microphone.Start(device, true, len, AudioSettings.outputSampleRate);
+            source.clip = Microphone.Start(device, true, 10, AudioSettings.outputSampleRate);
             source.loop = true;
             while(!(Microphone.GetPosition(null) > 0)) {}
             source.Play();
