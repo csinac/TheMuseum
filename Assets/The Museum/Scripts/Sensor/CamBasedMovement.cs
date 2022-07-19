@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
@@ -50,6 +49,20 @@ namespace RectangleTrainer.MOIB.Sensor
 
                 textures[i] = new RenderTexture(px, px, 0, colorFormat);
                 cams[i].targetTexture = textures[i];
+            }
+        }
+        
+        void OnGUI()
+        {
+            if (Application.isPlaying) {
+                for (int i = 0; i < textures.Length; i++) {
+                    GUI.DrawTexture(
+                        new Rect(10 + 110 * i, 10, 100, 100),
+                        textures[i],
+                        ScaleMode.ScaleToFit, 
+                        false,
+                        1f);
+                }
             }
         }
 
