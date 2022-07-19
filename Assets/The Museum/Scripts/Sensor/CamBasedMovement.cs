@@ -6,6 +6,7 @@ namespace RectangleTrainer.MOIB.Sensor
     public class CamBasedMovement : SensorBase
     {
         [SerializeField, Min(1)] private int camCount = 3;
+        [SerializeField, Range(1, 179)] private int fov = 120;
         [SerializeField, Min(0.01f)] private float farPlane = 10f;
         [SerializeField, Min(0.01f)] private float nearPlane = 0.2f;
         [SerializeField] private Size size = Size._16x16;
@@ -52,7 +53,7 @@ namespace RectangleTrainer.MOIB.Sensor
                 camObj.transform.LookAt(transform.position + new Vector3(x, 0, z));
                 camObj.name = $"Cam.{i}";
                 cams[i] = camObj.AddComponent<Camera>();
-                cams[i].fieldOfView = 360 / camCount;
+                cams[i].fieldOfView = fov;
                 cams[i].nearClipPlane = nearPlane;
                 cams[i].farClipPlane = farPlane;
                 cams[i].clearFlags = CameraClearFlags.SolidColor;
@@ -116,7 +117,6 @@ namespace RectangleTrainer.MOIB.Sensor
             }
 
             readings[0] /= camCount;
-            Debug.Log(string.Join(", ", readings));
             return readings;
         }
     }
