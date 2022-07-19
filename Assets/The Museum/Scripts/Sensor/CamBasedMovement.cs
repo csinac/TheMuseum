@@ -11,8 +11,14 @@ namespace RectangleTrainer.MOIB.Sensor
         [SerializeField] private Size size = Size._16x16;
         [SerializeField] private GraphicsFormat colorFormat = GraphicsFormat.R8_UInt;
 
+        private int pxSize;
+        private int pxLen;
+
         private Camera[] cams;
         private RenderTexture[] textures;
+
+        private float[,] previousPixels;
+        private float[,] currentPixels;
 
         private enum Size
         { _4x4, _8x8, _16x16, _32x32, _64x64, _128x128, _256x256 }
@@ -25,10 +31,15 @@ namespace RectangleTrainer.MOIB.Sensor
             if (camCount < 1)
                 return;
             
+            pxSize = SizeConvert(size);
+            pxLen = pxSize * pxSize;
+
             cams = new Camera[camCount];
             textures = new RenderTexture[camCount];
+            currentPixels = new float[camCount, pxLen];
+            previousPixels = new float[camCount, pxLen];
+            readings = new float[camCount];
             
-            int px = SizeConvert(size);
             for (int i = 0; i < camCount; i++) {
                 float rad = Mathf.PI * 2 / camCount * i;
                 
@@ -46,8 +57,9 @@ namespace RectangleTrainer.MOIB.Sensor
                 cams[i].farClipPlane = farPlane;
                 cams[i].clearFlags = CameraClearFlags.SolidColor;
                 cams[i].backgroundColor = Color.black;
+                cams[i].enabled = false;
 
-                textures[i] = new RenderTexture(px, px, 0, colorFormat);
+                textures[i] = new RenderTexture(pxSize, pxSize, 0, colorFormat);
                 cams[i].targetTexture = textures[i];
             }
         }
@@ -80,7 +92,28 @@ namespace RectangleTrainer.MOIB.Sensor
         }
 
         protected override float[] Read() {
-            return null;
+            for (int i = 0; i < cams.Length; i++) {
+                cams[i].Render();
+                var tex = new Texture2D(pxSize, pxSize);
+                Rect rect = new Rect(0, 0, pxSize, pxSize);
+                RenderTexture.active = textures[i];
+                tex.ReadPixels(rect, 0, 0);
+                tex.Apply();
+                var pixels = tex.GetPixels(0, 0, pxSize, pxSize);
+                readings[i] = 0;
+
+                for (int j = 0; j < pixels.Length; j++) {
+                    previousPixels[i, j] = currentPixels[i, j];
+                    currentPixels[i, j] = pixels[j].r;
+                    if(currentPixels[i, j] != previousPixels[i, j])
+                        readings[i] ++;
+                }
+
+                readings[i] /= pxLen;
+            }
+            
+            Debug.Log(string.Join(", ", readings));
+            return readings;
         }
     }
 }
