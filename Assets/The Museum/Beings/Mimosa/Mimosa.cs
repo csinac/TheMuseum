@@ -8,11 +8,12 @@ namespace RectangleTrainer.MOIB.Installation
 {
     public class Mimosa : InstallationBase
     {
-        [SerializeField] private float movementThreshold = 0.3f;
+        [SerializeField] private float proximityChangeThreshold = .8f;
         [SerializeField] private Transform mesh;
         [SerializeField] private float trustCooldown = 10;
         [SerializeField] private float audioThreshold = .03f;
         [SerializeField] private float audioLevelMultiplier = 10;
+        [SerializeField] private float motionThreshold = .005f;
 
         private float trustCooldownTime;
         private float _trust;
@@ -28,7 +29,8 @@ namespace RectangleTrainer.MOIB.Installation
         private bool movementDetected = false;
         
         protected override void OnMovement(float[] values) {
-            //TODO
+            if (values[0] > motionThreshold)
+                Log("Things are moving too fast.", "#77ff88");
         }
 
         protected override void OnProximity(float[] values) {
@@ -57,7 +59,7 @@ namespace RectangleTrainer.MOIB.Installation
             if (values[0] > audioThreshold) {
                 float impact = Mathf.Clamp(values[0] * audioLevelMultiplier, 0, 100);
                 Trust -= impact;
-                Log($"Pulse! {impact}", "#aa88ff");
+                Log($"Too loud! {impact}", "#aa88ff");
             }
         }
 
@@ -74,7 +76,7 @@ namespace RectangleTrainer.MOIB.Installation
                 trustCooldownTime -= Time.deltaTime;
             
             if (movementDetected) {
-                Log("Too fast", "#ffaa00");
+                Log("Something's approaching too fast", "#ffaa00");
                 movementDetected = false;
                 trustCooldownTime = trustCooldown;
                 Trust = Mathf.Clamp(Trust - proximityDelta / Mathf.Max(0.01f, currentProximity),-100, 100);
@@ -99,7 +101,7 @@ namespace RectangleTrainer.MOIB.Installation
                 return;
             
             proximityDelta = (previousProximity - currentProximity) / Time.deltaTime;
-            movementDetected = proximityDelta > movementThreshold;
+            movementDetected = proximityDelta > proximityChangeThreshold;
         }
     }
 }
