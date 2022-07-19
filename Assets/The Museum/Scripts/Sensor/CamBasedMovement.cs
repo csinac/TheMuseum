@@ -65,6 +65,7 @@ namespace RectangleTrainer.MOIB.Sensor
             }
         }
         
+        #if TESTING
         void OnGUI()
         {
             if (Application.isPlaying) {
@@ -78,6 +79,7 @@ namespace RectangleTrainer.MOIB.Sensor
                 }
             }
         }
+        #endif
 
         private int SizeConvert(Size size) {
             switch (size) {
