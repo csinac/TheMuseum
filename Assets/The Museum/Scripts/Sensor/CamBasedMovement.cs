@@ -38,7 +38,7 @@ namespace RectangleTrainer.MOIB.Sensor
             textures = new RenderTexture[camCount];
             currentPixels = new float[camCount, pxLen];
             previousPixels = new float[camCount, pxLen];
-            readings = new float[camCount];
+            readings = new float[camCount + 1];
             
             for (int i = 0; i < camCount; i++) {
                 float rad = Mathf.PI * 2 / camCount * i;
@@ -92,6 +92,8 @@ namespace RectangleTrainer.MOIB.Sensor
         }
 
         protected override float[] Read() {
+            readings[0] = 0;
+            
             for (int i = 0; i < cams.Length; i++) {
                 cams[i].Render();
                 var tex = new Texture2D(pxSize, pxSize);
@@ -100,18 +102,20 @@ namespace RectangleTrainer.MOIB.Sensor
                 tex.ReadPixels(rect, 0, 0);
                 tex.Apply();
                 var pixels = tex.GetPixels(0, 0, pxSize, pxSize);
-                readings[i] = 0;
+                readings[i + 1] = 0;
 
                 for (int j = 0; j < pixels.Length; j++) {
                     previousPixels[i, j] = currentPixels[i, j];
                     currentPixels[i, j] = pixels[j].r;
                     if(currentPixels[i, j] != previousPixels[i, j])
-                        readings[i] ++;
+                        readings[i + 1] ++;
                 }
 
-                readings[i] /= pxLen;
+                readings[i + 1] /= pxLen;
+                readings[0] += readings[i + 1];
             }
-            
+
+            readings[0] /= camCount;
             Debug.Log(string.Join(", ", readings));
             return readings;
         }
