@@ -45,6 +45,8 @@ namespace RectangleTrainer.MOIB.Sensor
                 cams[i].fieldOfView = 360 / camCount;
                 cams[i].nearClipPlane = nearPlane;
                 cams[i].farClipPlane = farPlane;
+                cams[i].clearFlags = CameraClearFlags.SolidColor;
+                cams[i].backgroundColor = Color.black;
 
                 textures[i] = new RenderTexture(px, px, 0, colorFormat);
                 cams[i].targetTexture = textures[i];
@@ -62,13 +64,6 @@ namespace RectangleTrainer.MOIB.Sensor
             }
 
             return 256;
-        }
-
-        protected override void Update() {
-            base.Update();
-            
-            for(int i = 0; i < cams.Length; i++)
-                cams[i].Render();
         }
 
         protected override float[] Read() {
