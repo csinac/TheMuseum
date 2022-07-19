@@ -30,7 +30,6 @@ namespace RectangleTrainer.MOIB.Sensor
                 if (distance < maxDistance) {
                     float normalized = distance / maxDistance;
                     float contribution = attenuation.Evaluate(normalized);
-                    Debug.Log($"{normalized} {attenuation.Evaluate(normalized)}");
                     volumes[i + 1] = sources[i].Volume * contribution;
                     sum += volumes[i + 1];
                 }
