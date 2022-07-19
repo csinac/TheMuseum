@@ -12,6 +12,7 @@ namespace RectangleTrainer.MOIB.Installation
         [SerializeField] private Transform mesh;
         [SerializeField] private float trustCooldown = 10;
         [SerializeField] private float audioThreshold = .03f;
+        [SerializeField] private float audioLevelMultiplier = 10;
 
         private float trustCooldownTime;
         private float _trust;
@@ -54,7 +55,9 @@ namespace RectangleTrainer.MOIB.Installation
 
         protected override void OnAudio(float[] values) {
             if (values[0] > audioThreshold) {
-                Log($"Pulse! {values[0]}", "#aa88ff");
+                float impact = Mathf.Clamp(values[0] * audioLevelMultiplier, 0, 100);
+                Trust -= impact;
+                Log($"Pulse! {impact}", "#aa88ff");
             }
         }
 
