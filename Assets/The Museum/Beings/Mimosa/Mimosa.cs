@@ -29,8 +29,10 @@ namespace RectangleTrainer.MOIB.Installation
         private bool movementDetected = false;
         
         protected override void OnMovement(float[] values) {
-            if (values[0] > motionThreshold)
+            if (values[0] > motionThreshold) {
                 Log("Things are moving too fast.", "#77ff88");
+                trustCooldownTime = trustCooldown;
+            }
         }
 
         protected override void OnProximity(float[] values) {
@@ -60,6 +62,7 @@ namespace RectangleTrainer.MOIB.Installation
                 float impact = Mathf.Clamp(values[0] * audioLevelMultiplier, 0, 100);
                 Trust -= impact;
                 Log($"Too loud! {impact}", "#aa88ff");
+                trustCooldownTime = trustCooldown;
             }
         }
 
