@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 
 namespace RectangleTrainer.MOIB.Installation
 {
@@ -15,6 +13,7 @@ namespace RectangleTrainer.MOIB.Installation
         [SerializeField] private float audioLevelMultiplier = 10;
         [SerializeField] private float motionThreshold = .005f;
         [SerializeField] private float recoverySpeed = 5;
+        [SerializeField] private TextMeshPro trustLabel;
 
         private float trustCooldownTime;
         private float _trust;
@@ -91,6 +90,9 @@ namespace RectangleTrainer.MOIB.Installation
                 if (currentProximity < 1 && trustCooldownTime <= 0)
                     Trust += Time.deltaTime * recoverySpeed;
             }
+
+            if(trustLabel)
+                trustLabel.text = $"Trust: {Trust}";
         }
 
         private void VisualizeTrust() {
