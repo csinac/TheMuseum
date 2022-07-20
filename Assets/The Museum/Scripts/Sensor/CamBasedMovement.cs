@@ -20,12 +20,13 @@ namespace RectangleTrainer.MOIB.Sensor
 
         private float[,] previousPixels;
         private float[,] currentPixels;
-
+        
         private enum Size
         { _4x4, _8x8, _16x16, _32x32, _64x64, _128x128, _256x256 }
 
         private void Start() {
             Initialize();
+            Read();
         }
         
         private void Initialize() {
