@@ -14,6 +14,7 @@ namespace RectangleTrainer.MOIB.Installation
         [SerializeField] private float audioThreshold = .03f;
         [SerializeField] private float audioLevelMultiplier = 10;
         [SerializeField] private float motionThreshold = .005f;
+        [SerializeField] private float recoverySpeed = 5;
 
         private float trustCooldownTime;
         private float _trust;
@@ -84,11 +85,11 @@ namespace RectangleTrainer.MOIB.Installation
 
             if (Trust < 0) {
                 if(currentProximity > 1)
-                    Trust += Time.deltaTime;
+                    Trust += Time.deltaTime * recoverySpeed;
             }
             else {
                 if (currentProximity < 1 && trustCooldownTime <= 0)
-                    Trust += Time.deltaTime;
+                    Trust += Time.deltaTime * recoverySpeed;
             }
         }
 
