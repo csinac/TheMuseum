@@ -7,7 +7,6 @@ namespace RectangleTrainer.MOIB.Installation
     public class Mimosa : InstallationBase
     {
         [SerializeField] private float proximityChangeThreshold = .8f;
-        [SerializeField] private Transform mesh;
         [SerializeField] private float trustCooldown = 10;
         [SerializeField] private float audioThreshold = .03f;
         [SerializeField] private float audioLevelMultiplier = 10;
@@ -99,7 +98,6 @@ namespace RectangleTrainer.MOIB.Installation
         }
 
         private void VisualizeTrust() {
-            mesh.localScale = Vector3.one * (Trust + 110) / 200;
         }
 
         private void ProximityControl() {
