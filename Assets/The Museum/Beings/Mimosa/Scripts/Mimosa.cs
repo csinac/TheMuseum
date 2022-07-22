@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace RectangleTrainer.MOIB.Installation
+namespace RectangleTrainer.MOIB.Installation.Mimosa
 {
     public class Mimosa : InstallationBase
     {
