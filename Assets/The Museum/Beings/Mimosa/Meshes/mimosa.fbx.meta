@@ -21,6 +21,18 @@ ModelImporter:
   - first:
       74: 4718941187470391941
     second: Mimosa|sway.001
+  - first:
+      74: -1372811841832417536
+    second: Mimosa|trust
+  - first:
+      74: -1937561013646852617
+    second: Mimosa|trust (2)
+  - first:
+      74: -4834217713383771663
+    second: Mimosa|jigglejiggle
+  - first:
+      74: -762686893832556628
+    second: Mimosa|jigglejiggle_baked
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -51,11 +63,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Mimosa|fixed
-      takeName: Mimosa|fixed
+      name: Mimosa|sway
+      takeName: Mimosa|sway
       internalID: 0
       firstFrame: 0
-      lastFrame: 29
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -80,8 +92,37 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Mimosa|sway
-      takeName: Mimosa|sway
+      name: Mimosa|trust
+      takeName: Mimosa|trust
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Mimosa|jigglejiggle_baked
+      takeName: Mimosa|jigglejiggle_baked
       internalID: 0
       firstFrame: 0
       lastFrame: 200
